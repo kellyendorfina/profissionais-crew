@@ -15,8 +15,8 @@
 *{box-sizing:border-box} html,body{margin:0;padding:0}
 body{background:var(--background);color:var(--foreground);font-family:var(--font-sans);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
-section{padding:56px 0}
-@media(max-width:720px){section{padding:36px 0}.wrap{padding:0 16px}}
+section{padding:18px 0}
+@media(max-width:720px){section{padding:14px 0}.wrap{padding:0 16px}}
 .hero{padding:88px 0 48px;border-bottom:1px solid var(--border)}
 .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-foreground);margin-bottom:20px}
 .hero h1{font-size:clamp(36px,6vw,64px);font-weight:700;line-height:1.04;letter-spacing:-.025em;margin:0 0 16px}
@@ -37,7 +37,7 @@ section{padding:56px 0}
 .section-eyebrow{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground);margin-bottom:12px}
 .section-title{font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:0 0 12px}
 .section-title .accent{color:var(--muted-foreground);font-weight:400}
-.section-lede{font-size:16px;color:var(--muted-foreground);max-width:760px;margin:0 0 28px}
+.section-lede{font-size:16px;color:var(--muted-foreground);max-width:760px;margin:0 0 16px}
 .card{border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin:16px 0}
 .card h3{font-size:15px;font-weight:600;margin:0 0 8px}
 .card h3:not(:first-child){margin-top:22px}
@@ -68,9 +68,14 @@ section{padding:56px 0}
 details.cat-block{margin:0}
 summary.cat-head{cursor:pointer;list-style:none}
 summary.cat-head::-webkit-details-marker{display:none}
-summary.cat-head::after{content:"▾";margin-left:auto;color:var(--muted-foreground);font-size:13px}
-details.cat-block:not([open])>summary.cat-head::after{content:"▸"}
-details.cat-block:not([open])>summary.cat-head{border-bottom-color:transparent}
+summary.cat-head::after{content:"▾";margin-left:8px;color:var(--muted-foreground);font-size:13px}
+.cat-hint{margin-left:auto;font-size:11px;font-weight:600;color:var(--chart-1);opacity:0;transition:opacity .2s}
+details.cat-block:not([open])>summary.cat-head .cat-hint{opacity:1;animation:hintpulse 1.6s ease-in-out infinite}
+details.cat-block[open]>summary.cat-head .cat-hint{display:none}
+details.cat-block:not([open])>summary.cat-head::after{content:"▸";color:var(--chart-1);animation:nudge 1.1s ease-in-out infinite}
+summary.cat-head:hover{background:var(--muted)}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+@keyframes hintpulse{0%,100%{opacity:.45}50%{opacity:1}}
 .prof{border:1px solid var(--border);border-radius:var(--radius);padding:20px}
 .prof-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .avatar{width:46px;height:46px;border-radius:999px;color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:.02em}
@@ -86,7 +91,7 @@ details.cat-block:not([open])>summary.cat-head{border-bottom-color:transparent}
 .plat strong{font-size:12px;font-weight:700;line-height:1.2;display:block}
 .prow{font-size:12.5px;line-height:1.5;padding:8px 0;border-top:1px solid var(--border);color:var(--foreground)}
 .prow b{display:block;font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted-foreground);margin-bottom:2px;font-weight:600}
-.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
 @media(max-width:720px){.tiers{grid-template-columns:1fr}}
 .tier{border:1px solid var(--border);border-top-width:3px;border-radius:var(--radius);padding:22px}
 .tier h3{margin:0 0 4px;font-size:18px;font-weight:700}
@@ -168,7 +173,7 @@ html{scroll-behavior:smooth}
   <div class="section-eyebrow">Dados verificados</div>
   <h2 class="section-title">Dossiê dos <span class="accent">professores</span></h2>
   <p class="section-lede">Agrupado por modalidade. Dentro de cada grupo, ordenado por tier (cor do selo). O @ leva direto ao perfil. Onde não houve fonte confiável: "não encontrado".</p>
-  <details class="cat-block" open><summary class="cat-head"><span class="cat-dot" style="background:#8B5CF6"></span>Ed. Física / Personal feminino <span class="cat-n">4</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #0EA5E9">
+  <details class="cat-block"><summary class="cat-head"><span class="cat-dot" style="background:#8B5CF6"></span>Ed. Física / Personal feminino <span class="cat-n">4</span><span class="cat-hint">clique para abrir</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #0EA5E9">
       <div class="prof-head">
         <div class="avatar" style="background:#8B5CF6">BM</div>
         <div class="prof-id">
@@ -248,7 +253,7 @@ html{scroll-behavior:smooth}
       <div class="prow"><b>Produto / aula / consulta</b>Aulas coletivas + treino personalizado + produto digital (Hotmart).</div>
       <div class="prow"><b>Especialidade / formação</b>Prof. de Educação Física (CREF 070437). Aulas coletivas (step funcional, stiletto/dança) e personal.</div>
     </div></div></details>
-<details class="cat-block" open><summary class="cat-head"><span class="cat-dot" style="background:#EF4444"></span>Luta / Artes marciais <span class="cat-n">4</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #10B981">
+<details class="cat-block"><summary class="cat-head"><span class="cat-dot" style="background:#EF4444"></span>Luta / Artes marciais <span class="cat-n">4</span><span class="cat-hint">clique para abrir</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #10B981">
       <div class="prof-head">
         <div class="avatar" style="background:#10B981">JP</div>
         <div class="prof-id">
@@ -328,7 +333,7 @@ html{scroll-behavior:smooth}
       <div class="prow"><b>Produto / aula / consulta</b>Aula individual/particular (presencial Brasília, ~R$80/h, 1ª grátis). Sem produto digital/consulta.</div>
       <div class="prow"><b>Especialidade / formação</b>Muay Thai. Vice-Campeã Mundial WBC 2023; formação em arbitragem.</div>
     </div></div></details>
-<details class="cat-block" open><summary class="cat-head"><span class="cat-dot" style="background:#14B8A6"></span>Yoga & Pilates <span class="cat-n">2</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #0EA5E9">
+<details class="cat-block"><summary class="cat-head"><span class="cat-dot" style="background:#14B8A6"></span>Yoga & Pilates <span class="cat-n">2</span><span class="cat-hint">clique para abrir</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #0EA5E9">
       <div class="prof-head">
         <div class="avatar" style="background:#0EA5E9">BP</div>
         <div class="prof-id">
@@ -368,7 +373,7 @@ html{scroll-behavior:smooth}
       <div class="prow"><b>Produto / aula / consulta</b>Aulas presenciais (Studio de Pilates, Ourinhos-SP). Sem produto digital/consulta confirmados.</div>
       <div class="prow"><b>Especialidade / formação</b>Pilates (conteúdo diário e acrobático).</div>
     </div></div></details>
-<details class="cat-block" open><summary class="cat-head"><span class="cat-dot" style="background:#F472B6"></span>Nutrição <span class="cat-n">2</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #0EA5E9">
+<details class="cat-block"><summary class="cat-head"><span class="cat-dot" style="background:#F472B6"></span>Nutrição <span class="cat-n">2</span><span class="cat-hint">clique para abrir</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #0EA5E9">
       <div class="prof-head">
         <div class="avatar" style="background:#F59E0B">DL</div>
         <div class="prof-id">
@@ -408,7 +413,7 @@ html{scroll-behavior:smooth}
       <div class="prow"><b>Produto / aula / consulta</b>Consulta individual online (plano via app). Também docente universitária. Sem produto digital próprio.</div>
       <div class="prow"><b>Especialidade / formação</b>Nutricionista (CRN 8092), mestre e doutoranda. Alimentação consciente, nutrição clínica e estética.</div>
     </div></div></details>
-<details class="cat-block" open><summary class="cat-head"><span class="cat-dot" style="background:#64748B"></span>Ciclismo <span class="cat-n">1</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #F59E0B">
+<details class="cat-block"><summary class="cat-head"><span class="cat-dot" style="background:#64748B"></span>Ciclismo <span class="cat-n">1</span><span class="cat-hint">clique para abrir</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #F59E0B">
       <div class="prof-head">
         <div class="avatar" style="background:#EF4444">AC</div>
         <div class="prof-id">
