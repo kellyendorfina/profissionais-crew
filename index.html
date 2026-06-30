@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Crew · Scouting de Professores e Remuneração</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--background:#FFFFFF;--foreground:#0A0A0A;--card:#FFFFFF;--muted:#F4F4F5;--muted-foreground:#71717A;
+--border:#E5E7EB;--border-strong:#D4D4D8;--primary:#18181B;--primary-foreground:#FAFAFA;
+--chart-1:#0EA5E9;--chart-2:#10B981;--chart-3:#F59E0B;--chart-4:#8B5CF6;--chart-5:#EF4444;
+--radius:0.625rem;--radius-sm:0.375rem;--font-sans:"Inter",system-ui,sans-serif;--font-mono:"JetBrains Mono",monospace;}
+*{box-sizing:border-box} html,body{margin:0;padding:0}
+body{background:var(--background);color:var(--foreground);font-family:var(--font-sans);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section{padding:56px 0}
+@media(max-width:720px){section{padding:36px 0}.wrap{padding:0 16px}}
+.hero{padding:88px 0 48px;border-bottom:1px solid var(--border)}
+.hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-foreground);margin-bottom:20px}
+.hero h1{font-size:clamp(36px,6vw,64px);font-weight:700;line-height:1.04;letter-spacing:-.025em;margin:0 0 16px}
+.hero h1 .accent{color:var(--muted-foreground);font-weight:400}
+.hero-sub{font-size:17px;max-width:680px;color:var(--muted-foreground);margin:0;line-height:1.55}
+.hero-meta{margin-top:28px;display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid var(--border);font-size:12px;font-weight:500}
+.pill .dot{width:6px;height:6px;border-radius:999px;background:var(--chart-1)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:40px}
+@media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{padding:20px 22px;border-radius:var(--radius);border:1px solid var(--border)}
+.stat-value{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.stat-label{font-size:12px;color:var(--muted-foreground);margin-top:6px;font-weight:500}
+.toc{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 0}
+.toc-list{display:flex;gap:4px;overflow-x:auto;flex-wrap:nowrap}
+.toc-list a{padding:6px 12px;border-radius:999px;font-size:13px;font-weight:500;color:var(--muted-foreground);text-decoration:none;white-space:nowrap}
+.toc-list a:hover{background:var(--muted);color:var(--foreground)}
+.section-eyebrow{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground);margin-bottom:12px}
+.section-title{font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:0 0 12px}
+.section-title .accent{color:var(--muted-foreground);font-weight:400}
+.section-lede{font-size:16px;color:var(--muted-foreground);max-width:760px;margin:0 0 28px}
+.card{border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin:16px 0}
+.card h3{font-size:15px;font-weight:600;margin:0 0 8px}
+.card h3:not(:first-child){margin-top:22px}
+.card p{margin:0 0 12px;line-height:1.65} .card p:last-child{margin-bottom:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+.chart-card{border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0}
+.chart-title{font-size:15px;font-weight:600;margin:0 0 4px}
+.chart-desc{font-size:13px;color:var(--muted-foreground);margin:0 0 16px}
+.chart-canvas svg{width:100%;height:auto;display:block}
+.chart-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--muted-foreground)}
+.chart-legend-item{display:inline-flex;align-items:center;gap:6px}
+.chart-legend-swatch{width:10px;height:10px;border-radius:3px}
+.yt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:24px 0}
+.yt-card{border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.yt-rank{font-family:var(--font-mono);font-size:12px;font-weight:600;margin-bottom:10px}
+.yt-title{font-size:16px;font-weight:600;line-height:1.3;margin-bottom:10px;letter-spacing:-.01em}
+.yt-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.yt-meta span{font-size:11px;color:var(--muted-foreground);padding:3px 8px;background:var(--muted);border-radius:999px}
+.yt-meta a{font-size:11px;padding:3px 8px;background:var(--muted);border-radius:999px;color:var(--chart-1);text-decoration:none;font-weight:600}
+.yt-gap{padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--muted-foreground);line-height:1.5;margin-top:8px}
+.yt-gap strong{display:block;font-family:var(--font-mono);color:var(--foreground);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+/* dossier */
+.prof-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;margin:14px 0 28px}
+.cat-head{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:700;letter-spacing:-.01em;margin:28px 0 0;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.cat-dot{width:12px;height:12px;border-radius:4px;flex-shrink:0}
+.cat-n{font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--muted-foreground);background:var(--muted);border-radius:999px;padding:1px 9px}
+details.cat-block{margin:0}
+summary.cat-head{cursor:pointer;list-style:none}
+summary.cat-head::-webkit-details-marker{display:none}
+summary.cat-head::after{content:"▾";margin-left:auto;color:var(--muted-foreground);font-size:13px}
+details.cat-block:not([open])>summary.cat-head::after{content:"▸"}
+details.cat-block:not([open])>summary.cat-head{border-bottom-color:transparent}
+.prof{border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.prof-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.avatar{width:46px;height:46px;border-radius:999px;color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:.02em}
+.prof-id{flex:1;min-width:0}
+.prof-name{font-size:16px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+.prof-handle{font-size:12px;color:var(--chart-1);text-decoration:none;font-weight:600}
+.prof-handle:hover{text-decoration:underline}
+.prof-modal{display:inline-block;margin-top:5px;font-size:10.5px;font-weight:600;color:var(--foreground);background:var(--muted);border:1px solid var(--border);padding:2px 9px;border-radius:999px}
+.prof-tier{font-family:var(--font-mono);font-size:10px;font-weight:700;color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap;align-self:flex-start}
+.plats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.plat{background:var(--muted);border-radius:var(--radius-sm);padding:8px 10px;text-align:center}
+.plat span{display:block;font-size:10px;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.plat strong{font-size:12px;font-weight:700;line-height:1.2;display:block}
+.prow{font-size:12.5px;line-height:1.5;padding:8px 0;border-top:1px solid var(--border);color:var(--foreground)}
+.prow b{display:block;font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted-foreground);margin-bottom:2px;font-weight:600}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+@media(max-width:720px){.tiers{grid-template-columns:1fr}}
+.tier{border:1px solid var(--border);border-top-width:3px;border-radius:var(--radius);padding:22px}
+.tier h3{margin:0 0 4px;font-size:18px;font-weight:700}
+.tier .rng{font-family:var(--font-mono);font-size:12px;color:var(--muted-foreground);margin-bottom:12px}
+.tier p{font-size:13px;margin:0;line-height:1.55}
+ul.pct{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px}
+ul.pct li{font-size:13px;display:flex;justify-content:space-between;padding:5px 10px;background:var(--muted);border-radius:var(--radius-sm)}
+ul.pct li b{font-weight:700}
+.card ul.ex{padding-left:20px;margin:10px 0 0} .card ul.ex li{margin-bottom:11px;line-height:1.6}
+table{width:100%;border-collapse:collapse;font-size:13px}
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);margin:16px 0}
+thead{background:var(--muted)}
+th{text-align:left;padding:12px 14px;font-weight:600;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-foreground);border-bottom:1px solid var(--border)}
+td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.mono{font-family:var(--font-mono);font-size:12px;white-space:nowrap}
+.refcard{display:flex;gap:18px;align-items:center;border:1px solid var(--border);border-left:3px solid var(--chart-4);border-radius:var(--radius);padding:22px;margin:8px 0 4px}
+.refcard .avatar{width:54px;height:54px;font-size:17px}
+.refcard .t{font-size:12px;color:var(--muted-foreground);line-height:1.5}
+.refcard .t strong{color:var(--foreground)}
+.highlight{background:var(--primary);color:var(--primary-foreground);border-radius:var(--radius);padding:44px;margin:24px 0}
+.highlight .section-eyebrow{color:rgba(250,250,250,.6)}
+.highlight h2{font-size:clamp(26px,4vw,36px);font-weight:700;letter-spacing:-.02em;margin:0 0 16px;color:var(--primary-foreground)}
+.highlight p{color:rgba(250,250,250,.82);margin:0 0 14px;line-height:1.6}
+.highlight ol{padding-left:20px;margin:0} .highlight ol li{margin-bottom:10px;color:rgba(250,250,250,.92);line-height:1.55}
+.note{font-size:13px;color:var(--muted-foreground);background:var(--muted);border-radius:var(--radius-sm);padding:14px 16px;margin:16px 0;line-height:1.55}
+.packlist{margin:0;padding-left:18px} .packlist li{margin-bottom:9px;line-height:1.5;font-size:14px}
+.sug{display:inline-block;font-size:10px;font-weight:700;color:var(--chart-2);background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);padding:1px 6px;border-radius:999px;margin-left:4px;white-space:nowrap}
+td.cc{text-align:center;font-weight:600}
+footer{padding:44px 0;text-align:center;border-top:1px solid var(--border);margin-top:40px}
+footer .foot-eyebrow{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground)}
+footer .foot-title{font-size:18px;font-weight:600;margin-top:6px}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">Crew · Scouting + Remuneração · Junho 2026</div>
+    <h1>Professores da Crew <span class="accent">por valor, não por achismo</span></h1>
+    <p class="hero-sub">Dossiê de criadores wellness para virarem embaixadores, com dados verificados das redes, critérios de categorização, tiers e um modelo de remuneração por 3 fontes.</p>
+    <div class="hero-meta">
+      <span class="pill"><span class="dot"></span>13 professores no dossiê</span>
+      <span class="pill"><span class="dot"></span>3 tiers</span>
+      <span class="pill"><span class="dot"></span>4 fontes de receita</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-value">Por hora</div><div class="stat-label">produção em pacote contratado</div></div>
+      <div class="stat"><div class="stat-value">50-60%</div><div class="stat-label">do produto próprio fica com o professor</div></div>
+      <div class="stat"><div class="stat-value">25-35%</div><div class="stat-label">comissão de afiliado da assinatura</div></div>
+      <div class="stat"><div class="stat-value">R$ 100</div><div class="stat-label">ajuda de custo por diária no Rio</div></div>
+    </div>
+  </div>
+</header>
+
+<nav class="toc"><div class="wrap"><div class="toc-list">
+  <a href="#referencia">Referência</a>
+  <a href="#dossie">Dossiê</a>
+  <a href="#criterios">Critérios</a>
+  <a href="#tiers">Tiers</a>
+  <a href="#score">Score</a>
+  <a href="#modelo">Remuneração</a>
+  <a href="#pacote">Pacote</a>
+  <a href="#passos">Próximos passos</a>
+</div></div></nav>
+
+<section id="referencia"><div class="wrap">
+  <div class="section-eyebrow">Referência principal</div>
+  <h2 class="section-title">Gabriela <span class="accent">Bahia</span></h2>
+  <div class="refcard">
+    <div class="avatar" style="background:var(--chart-4)">GB</div>
+    <div class="t"><strong>Sócia e referência principal da Crew · <a class="prof-handle" href="https://www.instagram.com/gabriela_bahia/" target="_blank" rel="noopener">@gabriela_bahia ↗</a> · ~974k</strong><br>
+    Fora do sistema de tiers e da remuneração de professores: é o benchmark da marca. Todo o plano de embaixadores existe justamente para distribuir o que hoje depende dela.</div>
+  </div>
+</div></section>
+
+<section id="dossie"><div class="wrap">
+  <div class="section-eyebrow">Dados verificados</div>
+  <h2 class="section-title">Dossiê dos <span class="accent">professores</span></h2>
+  <p class="section-lede">Agrupado por modalidade. Dentro de cada grupo, ordenado por tier (cor do selo). O @ leva direto ao perfil. Onde não houve fonte confiável: "não encontrado".</p>
+  <details class="cat-block" open><summary class="cat-head"><span class="cat-dot" style="background:#8B5CF6"></span>Ed. Física / Personal feminino <span class="cat-n">4</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #0EA5E9">
+      <div class="prof-head">
+        <div class="avatar" style="background:#8B5CF6">BM</div>
+        <div class="prof-id">
+          <div class="prof-name">Bianca Martins</div>
+          <a class="prof-handle" href="https://www.instagram.com/personaltrainer.bianca/" target="_blank" rel="noopener">@personaltrainer.bianca ↗</a>
+          <div class="prof-modal">Personal / treino feminino</div>
+        </div>
+        <div class="prof-tier" style="background:#0EA5E9">TIER B</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>26-38 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>não encontrado</strong></div>
+        <div class="plat"><span>TikTok</span><strong>@bianca.personaltrainer (s/ nº)</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Movimento</div>
+      <div class="prow"><b>Faz collab?</b>Indícios: já divulgou cupom (afiliação/parceria)</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Consultoria online (hipertrofia/emagrecimento), método próprio 'Corpo Livre'.</div>
+      <div class="prow"><b>Especialidade / formação</b>Personal trainer (Ed. Física), ex-atleta de handebol. Treino feminino para mulheres 'fora do padrão', autoestima. SP.</div>
+    </div>
+<div class="prof" style="border-left:4px solid #0EA5E9">
+      <div class="prof-head">
+        <div class="avatar" style="background:#8B5CF6">MO</div>
+        <div class="prof-id">
+          <div class="prof-name">Mika Oliveira</div>
+          <a class="prof-handle" href="https://www.instagram.com/personalmika/" target="_blank" rel="noopener">@personalmika ↗</a>
+          <div class="prof-modal">Personal / treino feminino</div>
+        </div>
+        <div class="prof-tier" style="background:#0EA5E9">TIER B</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>60 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>Canal ativo (s/ nº)</strong></div>
+        <div class="plat"><span>TikTok</span><strong>não encontrado</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Movimento</div>
+      <div class="prow"><b>Faz collab?</b>Não encontrado</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Consultoria fitness online de treino feminino (+800 alunas em 8 países).</div>
+      <div class="prow"><b>Especialidade / formação</b>Personal trainer / consultoria de treino feminino (musculação/emagrecimento). Estilo Gabriela Bahia.</div>
+    </div>
+<div class="prof" style="border-left:4px solid #0EA5E9">
+      <div class="prof-head">
+        <div class="avatar" style="background:#8B5CF6">MB</div>
+        <div class="prof-id">
+          <div class="prof-name">Mayara Benicá</div>
+          <a class="prof-handle" href="https://www.instagram.com/mayarabenicapersonal/" target="_blank" rel="noopener">@mayarabenicapersonal ↗</a>
+          <div class="prof-modal">Personal / treino feminino (glúteos)</div>
+        </div>
+        <div class="prof-tier" style="background:#0EA5E9">TIER B</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>19 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>não encontrado</strong></div>
+        <div class="plat"><span>TikTok</span><strong>não encontrado</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Movimento</div>
+      <div class="prow"><b>Faz collab?</b>Não encontrado</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Consultoria online, planos individuais.</div>
+      <div class="prow"><b>Especialidade / formação</b>Personal trainer focada em treino feminino, glúteos e avaliação postural. Micro e específica.</div>
+    </div>
+<div class="prof" style="border-left:4px solid #F59E0B">
+      <div class="prof-head">
+        <div class="avatar" style="background:#8B5CF6">TC</div>
+        <div class="prof-id">
+          <div class="prof-name">Treinador Calderon</div>
+          <a class="prof-handle" href="https://www.instagram.com/treinadorcalderon/" target="_blank" rel="noopener">@treinadorcalderon ↗</a>
+          <div class="prof-modal">Ed. Física / Aulas coletivas</div>
+        </div>
+        <div class="prof-tier" style="background:#F59E0B">TIER C</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>12,9 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>não encontrado</strong></div>
+        <div class="plat"><span>TikTok</span><strong>não encontrado</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Movimento</div>
+      <div class="prow"><b>Faz collab?</b>Sim: parceiro da Crew (bio cita vempracrew); link Hotmart na bio</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Aulas coletivas + treino personalizado + produto digital (Hotmart).</div>
+      <div class="prow"><b>Especialidade / formação</b>Prof. de Educação Física (CREF 070437). Aulas coletivas (step funcional, stiletto/dança) e personal.</div>
+    </div></div></details>
+<details class="cat-block" open><summary class="cat-head"><span class="cat-dot" style="background:#EF4444"></span>Luta / Artes marciais <span class="cat-n">4</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #10B981">
+      <div class="prof-head">
+        <div class="avatar" style="background:#10B981">JP</div>
+        <div class="prof-id">
+          <div class="prof-name">Júnior Pimenta</div>
+          <a class="prof-handle" href="https://www.instagram.com/jrpimenta_/" target="_blank" rel="noopener">@jrpimenta_ ↗</a>
+          <div class="prof-modal">Muay Thai / Artes marciais</div>
+        </div>
+        <div class="prof-tier" style="background:#10B981">TIER A</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>68,5 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>Academia (s/ nº)</strong></div>
+        <div class="plat"><span>TikTok</span><strong>@pimentafightclub</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Luta/cardio</div>
+      <div class="prow"><b>Faz collab?</b>Sim (indícios): treina celebridades (ex: Grazi Massafera); academia em ClassPass/Gurupass/Wellhub</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Aula em grupo + personal presencial. Sem produto digital.</div>
+      <div class="prow"><b>Especialidade / formação</b>Muay Thai e artes marciais (MMA, jiu-jitsu, defesa pessoal). Fundador do Pimenta Fight Club (Joá/Barra-RJ).</div>
+    </div>
+<div class="prof" style="border-left:4px solid #10B981">
+      <div class="prof-head">
+        <div class="avatar" style="background:#10B981">EM</div>
+        <div class="prof-id">
+          <div class="prof-name">Ellas Muay Thai</div>
+          <a class="prof-handle" href="https://www.instagram.com/ellasmuaythai/" target="_blank" rel="noopener">@ellasmuaythai ↗</a>
+          <div class="prof-modal">Muay Thai feminino</div>
+        </div>
+        <div class="prof-tier" style="background:#10B981">TIER A</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>9,6 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>não encontrado</strong></div>
+        <div class="plat"><span>TikTok</span><strong>ativo (s/ nº)</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Luta/cardio</div>
+      <div class="prow"><b>Faz collab?</b>Não (modelo próprio/franquia)</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Estúdio presencial feminino (máx 4 alunas), aula experimental grátis. Produto B2B (Domínio Hub). Sem consulta.</div>
+      <div class="prow"><b>Especialidade / formação</b>Muay Thai feminino em grupos reduzidos (Porto Alegre).</div>
+    </div>
+<div class="prof" style="border-left:4px solid #10B981">
+      <div class="prof-head">
+        <div class="avatar" style="background:#10B981">LT</div>
+        <div class="prof-id">
+          <div class="prof-name">Lady's Thai Team</div>
+          <a class="prof-handle" href="https://www.instagram.com/ladysthaiteam/" target="_blank" rel="noopener">@ladysthaiteam ↗</a>
+          <div class="prof-modal">Muay Thai feminino</div>
+        </div>
+        <div class="prof-tier" style="background:#10B981">TIER A</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>9,5 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>não encontrado</strong></div>
+        <div class="plat"><span>TikTok</span><strong>não encontrado</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Luta/cardio</div>
+      <div class="prow"><b>Faz collab?</b>Não</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Aulas personal + grupo presencial (Santos-SP). Sem produto digital/consulta.</div>
+      <div class="prow"><b>Especialidade / formação</b>Muay Thai feminino. Mestra Andressa Saboya (~27 anos de experiência).</div>
+    </div>
+<div class="prof" style="border-left:4px solid #0EA5E9">
+      <div class="prof-head">
+        <div class="avatar" style="background:#10B981">MA</div>
+        <div class="prof-id">
+          <div class="prof-name">Milena Assunção</div>
+          <a class="prof-handle" href="https://www.instagram.com/milenamuaythai/" target="_blank" rel="noopener">@milenamuaythai ↗</a>
+          <div class="prof-modal">Muay Thai (atleta)</div>
+        </div>
+        <div class="prof-tier" style="background:#0EA5E9">TIER B</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>4,9 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>não encontrado</strong></div>
+        <div class="plat"><span>TikTok</span><strong>não encontrado</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Luta/cardio</div>
+      <div class="prow"><b>Faz collab?</b>Não</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Aula individual/particular (presencial Brasília, ~R$80/h, 1ª grátis). Sem produto digital/consulta.</div>
+      <div class="prow"><b>Especialidade / formação</b>Muay Thai. Vice-Campeã Mundial WBC 2023; formação em arbitragem.</div>
+    </div></div></details>
+<details class="cat-block" open><summary class="cat-head"><span class="cat-dot" style="background:#14B8A6"></span>Yoga & Pilates <span class="cat-n">2</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #0EA5E9">
+      <div class="prof-head">
+        <div class="avatar" style="background:#0EA5E9">BP</div>
+        <div class="prof-id">
+          <div class="prof-name">Bruna Paludetti</div>
+          <a class="prof-handle" href="https://www.instagram.com/brunapaludetti/" target="_blank" rel="noopener">@brunapaludetti ↗</a>
+          <div class="prof-modal">Yoga (Vinyasa Flow)</div>
+        </div>
+        <div class="prof-tier" style="background:#0EA5E9">TIER B</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>339 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>ativo (s/ nº)</strong></div>
+        <div class="plat"><span>TikTok</span><strong>ativo (s/ nº)</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Bem-estar</div>
+      <div class="prow"><b>Faz collab?</b>Sim (ex: linha Candy da Bioage)</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Produto digital: Assinatura de Yoga (+370 aulas, via Hotmart) e cursos. Modelo online, não consulta.</div>
+      <div class="prow"><b>Especialidade / formação</b>Yoga estilo Vinyasa Flow (flexibilidade, mobilidade, bem-estar mental).</div>
+    </div>
+<div class="prof" style="border-left:4px solid #0EA5E9">
+      <div class="prof-head">
+        <div class="avatar" style="background:#0EA5E9">JP</div>
+        <div class="prof-id">
+          <div class="prof-name">Ju Palhiarin</div>
+          <a class="prof-handle" href="https://www.instagram.com/jupalhiarin/" target="_blank" rel="noopener">@jupalhiarin ↗</a>
+          <div class="prof-modal">Fisioterapeuta / Pilates</div>
+        </div>
+        <div class="prof-tier" style="background:#0EA5E9">TIER B</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>25 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>não encontrado</strong></div>
+        <div class="plat"><span>TikTok</span><strong>não encontrado</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Bem-estar</div>
+      <div class="prow"><b>Faz collab?</b>Não encontrado</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Aulas presenciais (Studio de Pilates, Ourinhos-SP). Sem produto digital/consulta confirmados.</div>
+      <div class="prow"><b>Especialidade / formação</b>Pilates (conteúdo diário e acrobático).</div>
+    </div></div></details>
+<details class="cat-block" open><summary class="cat-head"><span class="cat-dot" style="background:#F472B6"></span>Nutrição <span class="cat-n">2</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #0EA5E9">
+      <div class="prof-head">
+        <div class="avatar" style="background:#F59E0B">DL</div>
+        <div class="prof-id">
+          <div class="prof-name">Danilo Lamounier</div>
+          <a class="prof-handle" href="https://www.instagram.com/danilo_lamounier/" target="_blank" rel="noopener">@danilo_lamounier ↗</a>
+          <div class="prof-modal">Nutrição / Body coach</div>
+        </div>
+        <div class="prof-tier" style="background:#0EA5E9">TIER B</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>127 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>20 mil</strong></div>
+        <div class="plat"><span>TikTok</span><strong>@danilo.lamounier (s/ nº)</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Nutrição</div>
+      <div class="prow"><b>Faz collab?</b>Pouco/não claro: foca em vender os próprios produtos</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Produto digital + consultoria/consulta online individual (Liberdade Nutricional, Danilo Fit).</div>
+      <div class="prow"><b>Especialidade / formação</b>Nutrição / body coach (ex-engenheiro). Foco em definição corporal, público feminino.</div>
+    </div>
+<div class="prof" style="border-left:4px solid #0EA5E9">
+      <div class="prof-head">
+        <div class="avatar" style="background:#F59E0B">JT</div>
+        <div class="prof-id">
+          <div class="prof-name">Jamile Tahim</div>
+          <a class="prof-handle" href="https://www.instagram.com/jamiletahim.nutri/" target="_blank" rel="noopener">@jamiletahim.nutri ↗</a>
+          <div class="prof-modal">Nutricionista (clínica)</div>
+        </div>
+        <div class="prof-tier" style="background:#0EA5E9">TIER B</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>9,5 mil</strong></div>
+        <div class="plat"><span>YouTube</span><strong>não encontrado</strong></div>
+        <div class="plat"><span>TikTok</span><strong>não encontrado</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Nutrição</div>
+      <div class="prow"><b>Faz collab?</b>Não encontrado</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Consulta individual online (plano via app). Também docente universitária. Sem produto digital próprio.</div>
+      <div class="prow"><b>Especialidade / formação</b>Nutricionista (CRN 8092), mestre e doutoranda. Alimentação consciente, nutrição clínica e estética.</div>
+    </div></div></details>
+<details class="cat-block" open><summary class="cat-head"><span class="cat-dot" style="background:#64748B"></span>Ciclismo <span class="cat-n">1</span></summary><div class="prof-grid"><div class="prof" style="border-left:4px solid #F59E0B">
+      <div class="prof-head">
+        <div class="avatar" style="background:#EF4444">AC</div>
+        <div class="prof-id">
+          <div class="prof-name">Ana Casetta</div>
+          <a class="prof-handle" href="https://www.instagram.com/anapcasetta/" target="_blank" rel="noopener">@anapcasetta ↗</a>
+          <div class="prof-modal">Ciclismo (treinadora)</div>
+        </div>
+        <div class="prof-tier" style="background:#F59E0B">TIER C</div>
+      </div>
+      <div class="plats">
+        <div class="plat"><span>Instagram</span><strong>a confirmar</strong></div>
+        <div class="plat"><span>YouTube</span><strong>não encontrado</strong></div>
+        <div class="plat"><span>TikTok</span><strong>não encontrado</strong></div>
+      </div>
+      <div class="prow"><b>Grupo Crew</b>Ciclismo</div>
+      <div class="prow"><b>Faz collab?</b>Indícios (perfil de atleta/treinadora)</div>
+      <div class="prow"><b>Produto / aula / consulta</b>Indícios de consultoria/treino de ciclismo; oferta não confirmada.</div>
+      <div class="prow"><b>Especialidade / formação</b>Ciclismo (MTB/estrada) e treinadora. Melhor candidata individual de bike, mas faltam dados — confirmar.</div>
+    </div></div></details>
+
+  <div class="note"><strong>Foto de perfil:</strong> o Instagram bloqueia a captura automática da imagem, então usei um avatar com as iniciais e o @ clicável (a foto aparece ao abrir o perfil). Se quiser os arquivos das fotos, posso capturá-las via navegador (Claude in Chrome). Dados coletados em jun/2026; TikTok costuma esconder a contagem por bloqueio anti-bot.</div>
+</div></section>
+
+<section id="criterios"><div class="wrap">
+  <div class="section-eyebrow">Eixo 01</div>
+  <h2 class="section-title">Critérios de <span class="accent">categorização</span></h2>
+  <div class="grid2">
+    <div class="card"><h3>Os sete critérios</h3>
+      <p><strong>Alcance</strong> (15%): seguidores somados nas redes.<br>
+      <strong>Engajamento</strong> (20%): tração real, não só tamanho.<br>
+      <strong>Fit + carisma</strong> (25%): encaixe nos pilares da Crew e na cultura da marca.<br>
+      <strong>Estrutura própria</strong> (10%): academia, time, estúdio.<br>
+      <strong>Autoridade</strong> (10%): atende influenciadores, credenciais.<br>
+      <strong>Multiplataforma</strong> (10%): Instagram, TikTok, YouTube.<br>
+      <strong>Localização</strong> (10%): Rio facilita estúdio e ajuda de custo.</p>
+    </div>
+    <div class="card"><h3>Por que esses pesos</h3>
+      <p>O maior peso é <strong>fit + carisma</strong>: a Crew quer gente que cresce junto, não só número grande. Engajamento pesa mais que alcance porque micro perfis convertem mais e custam menos.</p>
+      <p>Estrutura própria entra porque parceiros como o Pimenta Fight Club trazem ambiente e credibilidade. Localização tem peso menor: carisma e fit ganham de CEP.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="tiers"><div class="wrap">
+  <div class="section-eyebrow">Eixo 02</div>
+  <h2 class="section-title">Os três <span class="accent">tiers</span></h2>
+  <p class="section-lede">O tier define três coisas ao mesmo tempo: o valor da hora de gravação, a % do produto próprio e a comissão de afiliado.</p>
+  <div class="tiers">
+    <div class="tier" style="border-top-color:var(--chart-2)"><h3>A · Embaixador</h3><div class="rng">Score 70-100</div><p><strong>R$ 700/h</strong> de gravação · <strong>60%</strong> do produto próprio · <strong>35%</strong> de comissão. Rosto da marca, estrutura ou autoridade fortes.</p></div>
+    <div class="tier" style="border-top-color:var(--chart-1)"><h3>B · Parceiro</h3><div class="rng">Score 45-69</div><p><strong>R$ 500/h</strong> de gravação · <strong>55%</strong> do produto próprio · <strong>30%</strong> de comissão. Recorrente e confiável, em crescimento.</p></div>
+    <div class="tier" style="border-top-color:var(--chart-3)"><h3>C · Talento</h3><div class="rng">Score 0-44</div><p><strong>R$ 350/h</strong> de gravação · <strong>50%</strong> do produto próprio · <strong>25%</strong> de comissão. Promessa carismática para desenvolver, com foco em infra, mídia kit e LP própria.</p></div>
+  </div>
+</div></section>
+
+<section id="score"><div class="wrap">
+  <div class="section-eyebrow">Eixo 03</div>
+  <h2 class="section-title">Score por <span class="accent">modalidade</span></h2>
+  <p class="section-lede">Cada professor pontuado de 0 a 100 pelos sete critérios, agrupado por modalidade. A barra é colorida pelo tier. "(atual)" marca quem já trabalha com a Crew.</p>
+  <div class="chart-card">
+    <div class="cat-head" style="font-size:14px;margin:20px 0 6px"><span class="cat-dot" style="background:#8B5CF6"></span>Ed. Física / Personal feminino</div>
+<div class="chart-canvas"><svg viewBox="0 0 620 152" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<line x1="170" y1="8" x2="170" y2="144" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="265" y1="8" x2="265" y2="144" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="360" y1="8" x2="360" y2="144" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="455" y1="8" x2="455" y2="144" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="550" y1="8" x2="550" y2="144" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="160" y="25.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Bianca Martins</text>
+<rect x="170" y="12" width="258.4" height="20" rx="3" fill="#0EA5E9"/>
+<text x="434.4" y="25.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">68</text>
+<text x="160" y="59.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Mika Oliveira</text>
+<rect x="170" y="46" width="239.4" height="20" rx="3" fill="#0EA5E9"/>
+<text x="415.4" y="59.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">63</text>
+<text x="160" y="93.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Mayara Benicá</text>
+<rect x="170" y="80" width="212.8" height="20" rx="3" fill="#0EA5E9"/>
+<text x="388.8" y="93.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">56</text>
+<text x="160" y="127.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Treinador Calderon (atual)</text>
+<rect x="170" y="114" width="152.0" height="20" rx="3" fill="#F59E0B"/>
+<text x="328.0" y="127.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">40</text>
+</svg></div>
+<div class="cat-head" style="font-size:14px;margin:20px 0 6px"><span class="cat-dot" style="background:#EF4444"></span>Luta / Artes marciais</div>
+<div class="chart-canvas"><svg viewBox="0 0 620 152" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<line x1="170" y1="8" x2="170" y2="144" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="265" y1="8" x2="265" y2="144" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="360" y1="8" x2="360" y2="144" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="455" y1="8" x2="455" y2="144" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="550" y1="8" x2="550" y2="144" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="160" y="25.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Júnior Pimenta (atual)</text>
+<rect x="170" y="12" width="292.6" height="20" rx="3" fill="#10B981"/>
+<text x="468.6" y="25.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">77</text>
+<text x="160" y="59.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Ellas Muay Thai</text>
+<rect x="170" y="46" width="273.6" height="20" rx="3" fill="#10B981"/>
+<text x="449.6" y="59.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">72</text>
+<text x="160" y="93.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Lady's Thai Team</text>
+<rect x="170" y="80" width="273.6" height="20" rx="3" fill="#10B981"/>
+<text x="449.6" y="93.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">72</text>
+<text x="160" y="127.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Milena Assunção</text>
+<rect x="170" y="114" width="262.2" height="20" rx="3" fill="#0EA5E9"/>
+<text x="438.2" y="127.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">69</text>
+</svg></div>
+<div class="cat-head" style="font-size:14px;margin:20px 0 6px"><span class="cat-dot" style="background:#14B8A6"></span>Yoga & Pilates</div>
+<div class="chart-canvas"><svg viewBox="0 0 620 84" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<line x1="170" y1="8" x2="170" y2="76" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="265" y1="8" x2="265" y2="76" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="360" y1="8" x2="360" y2="76" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="455" y1="8" x2="455" y2="76" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="550" y1="8" x2="550" y2="76" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="160" y="25.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Bruna Paludetti</text>
+<rect x="170" y="12" width="258.4" height="20" rx="3" fill="#0EA5E9"/>
+<text x="434.4" y="25.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">68</text>
+<text x="160" y="59.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Ju Palhiarin</text>
+<rect x="170" y="46" width="231.8" height="20" rx="3" fill="#0EA5E9"/>
+<text x="407.8" y="59.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">61</text>
+</svg></div>
+<div class="cat-head" style="font-size:14px;margin:20px 0 6px"><span class="cat-dot" style="background:#F472B6"></span>Nutrição</div>
+<div class="chart-canvas"><svg viewBox="0 0 620 84" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<line x1="170" y1="8" x2="170" y2="76" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="265" y1="8" x2="265" y2="76" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="360" y1="8" x2="360" y2="76" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="455" y1="8" x2="455" y2="76" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="550" y1="8" x2="550" y2="76" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="160" y="25.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Danilo Lamounier (atual)</text>
+<rect x="170" y="12" width="254.6" height="20" rx="3" fill="#0EA5E9"/>
+<text x="430.6" y="25.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">67</text>
+<text x="160" y="59.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Jamile Tahim</text>
+<rect x="170" y="46" width="220.4" height="20" rx="3" fill="#0EA5E9"/>
+<text x="396.4" y="59.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">58</text>
+</svg></div>
+<div class="cat-head" style="font-size:14px;margin:20px 0 6px"><span class="cat-dot" style="background:#64748B"></span>Ciclismo</div>
+<div class="chart-canvas"><svg viewBox="0 0 620 50" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<line x1="170" y1="8" x2="170" y2="42" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="265" y1="8" x2="265" y2="42" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="360" y1="8" x2="360" y2="42" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="455" y1="8" x2="455" y2="42" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="550" y1="8" x2="550" y2="42" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="160" y="25.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Ana Casetta</text>
+<rect x="170" y="12" width="152.0" height="20" rx="3" fill="#F59E0B"/>
+<text x="328.0" y="25.0" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#0A0A0A">40</text>
+</svg></div>
+
+    <div class="chart-legend">
+      <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:var(--chart-2)"></span>Tier A</span>
+      <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:var(--chart-1)"></span>Tier B</span>
+      <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:var(--chart-3)"></span>Tier C</span>
+    </div>
+  </div>
+</div></section>
+
+<section id="modelo"><div class="wrap">
+  <div class="section-eyebrow">Eixo 04</div>
+  <h2 class="section-title">Modelo de <span class="accent">remuneração</span></h2>
+  <p class="section-lede">O professor ganha por quatro fontes que se somam. Cada uma responde a uma pergunta diferente: produzir conteúdo, ter produto próprio, vender a assinatura, e engajar a comunidade.</p>
+
+  <div class="tiers">
+    <div class="tier" style="border-top-color:#18181B"><h3>1 · Produção</h3><div class="rng">pago por HORA</div><p><strong>Pacote mensal / fee fixo</strong> (mais barato que avulso, amarra o vínculo), com <strong>mínimo de 4 horas</strong> (a definir com Luca). Não importa em quantas aulas a hora é dividida. Inclui edição de vídeo no estúdio, gravação de ads e material de redes. + R$ 100/diária de ajuda de custo no Rio.</p></div>
+    <div class="tier" style="border-top-color:var(--chart-1)"><h3>2 · Produto próprio</h3><div class="rng">revenue share</div><p>Produto 100% remoto do professor na plataforma Crew (um desafio, um programa). Fatia da receita que fica com o professor (o resto fica com a Crew: plataforma, audiência, pagamento, suporte):</p><ul class="pct"><li><span>Tier A</span><b>60%</b></li><li><span>Tier B</span><b>55%</b></li><li><span>Tier C</span><b>50%</b></li></ul></div>
+    <div class="tier" style="border-top-color:var(--chart-3)"><h3>3 · Afiliado</h3><div class="rng">comissão</div><p>Vende a assinatura Crew pela <strong>landing page própria</strong> (com mídia kit), não pela página genérica. Comissão sobre cada assinatura que trouxer:</p><ul class="pct"><li><span>Tier A</span><b>35%</b></li><li><span>Tier B</span><b>30%</b></li><li><span>Tier C</span><b>25%</b></li></ul></div>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--chart-2)">
+    <h3>4 · Engajamento <span style="font-weight:400;color:var(--muted-foreground);font-size:13px">bônus mensal · até 20%</span></h3>
+    <p>Bônus de até 20% sobre as três fontes, para quem participa de verdade da comunidade. Medido por um índice de engajamento (0 a 100), composto de:</p>
+    <ul class="pct" style="max-width:460px">
+      <li><span>Responde na comunidade e nas aulas (tira dúvidas)</span><b>peso 40%</b></li>
+      <li><span>Aulas assistidas (retenção)</span><b>peso 35%</b></li>
+      <li><span>Lives realizadas</span><b>peso 25%</b></li>
+    </ul>
+    <p style="margin-top:12px">Só paga acima do <strong>piso de 40</strong>: o engajamento precisa ser relevante. Quanto mais engajado, maior o bônus, até o teto de 20%. Sobe o tier e a fatia também sobe.</p>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--chart-2)">
+    <h3>Exemplo tangível — um professor Tier B num mês</h3>
+    <ul class="ex">
+      <li><strong>Fonte 1 · Produção.</strong> Gravou um pacote de 4 horas no estúdio do Rio. 4h × R$ 500 = <strong>R$ 2.000</strong>. A Crew edita os vídeos, grava os ads e entrega o material de redes. Foi 2 dias ao estúdio: ajuda de custo 2 × R$ 100 = R$ 200. Total produção: <strong>R$ 2.200</strong>.</li>
+      <li><strong>Fonte 2 · Produto próprio.</strong> Tem um programa remoto dele na plataforma ("21 dias de mobilidade") que faturou R$ 10.000 no mês. Ele fica com 55% = <strong>R$ 5.500</strong>. (A Crew fica com R$ 4.500.)</li>
+      <li><strong>Fonte 3 · Afiliado.</strong> Vendeu 20 assinaturas pela landing page dele, com ticket médio de R$ 99,90 (= R$ 1.998). Comissão de 30% = <strong>R$ 599</strong>.</li>
+      <li><strong>Fonte 4 · Engajamento.</strong> O engajamento dele (responde na comunidade e nas aulas, aulas assistidas, lives) virou um índice de <strong>60 em 100</strong> — acima do piso 40. O bônus máximo é 20% sobre as 3 fontes; como o índice foi 60, ele leva 60% desse teto, ou seja <strong>12%</strong>. 12% de R$ 8.299 = <strong>R$ 996</strong>.</li>
+    </ul>
+    <p style="font-size:18px;margin-top:12px"><strong>Total do mês = R$ 2.200 + R$ 5.500 + R$ 599 + R$ 996 = R$ 9.295.</strong></p>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Composição do total mensal por fonte (exemplo ilustrativo)</div>
+    <p class="chart-desc">Valor de cada fonte dentro da barra. Simulação detalhada na tabela abaixo.</p>
+    <div class="chart-canvas"><svg viewBox="0 0 720 154" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+<line x1="180" y1="8" x2="180" y2="146" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="288" y1="8" x2="288" y2="146" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="395" y1="8" x2="395" y2="146" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="502" y1="8" x2="502" y2="146" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<line x1="610" y1="8" x2="610" y2="146" stroke="#E5E7EB" stroke-width="1" stroke-dasharray="2 3"/>
+<text x="170" y="29.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Júnior Pimenta · A</text>
+<rect x="180.0" y="12" width="83.8" height="26" rx="3" fill="#18181B"/>
+<text x="221.9" y="29.0" text-anchor="middle" font-family="Inter.sans-serif" font-size="11" font-weight="600" fill="#FFFFFF">R$ 3.000</text>
+<rect x="263.8" y="12" width="201.1" height="26" rx="3" fill="#0EA5E9"/>
+<text x="364.3" y="29.0" text-anchor="middle" font-family="Inter.sans-serif" font-size="11" font-weight="600" fill="#FFFFFF">R$ 7.200</text>
+<rect x="464.8" y="12" width="29.3" height="26" rx="3" fill="#F59E0B"/>
+<rect x="494.1" y="12" width="50.3" height="26" rx="3" fill="#10B981"/>
+<text x="519.3" y="29.0" text-anchor="middle" font-family="Inter.sans-serif" font-size="11" font-weight="600" fill="#FFFFFF">R$ 1.800</text>
+<text x="552.4" y="29.0" font-family="Inter.sans-serif" font-size="12" font-weight="700" fill="#0A0A0A">R$ 13.049</text>
+<text x="170" y="75.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Danilo Lamounier · B</text>
+<rect x="180.0" y="58" width="55.9" height="26" rx="3" fill="#18181B"/>
+<text x="207.9" y="75.0" text-anchor="middle" font-family="Inter.sans-serif" font-size="11" font-weight="600" fill="#FFFFFF">R$ 2.000</text>
+<rect x="235.9" y="58" width="153.6" height="26" rx="3" fill="#0EA5E9"/>
+<text x="312.6" y="75.0" text-anchor="middle" font-family="Inter.sans-serif" font-size="11" font-weight="600" fill="#FFFFFF">R$ 5.500</text>
+<rect x="389.4" y="58" width="16.7" height="26" rx="3" fill="#F59E0B"/>
+<rect x="406.2" y="58" width="25.8" height="26" rx="3" fill="#10B981"/>
+<text x="439.9" y="75.0" font-family="Inter.sans-serif" font-size="12" font-weight="700" fill="#0A0A0A">R$ 9.022</text>
+<text x="170" y="121.0" text-anchor="end" font-family="Inter,sans-serif" font-size="11" fill="#0A0A0A">Treinador Calderon · C</text>
+<rect x="180.0" y="104" width="34.9" height="26" rx="3" fill="#18181B"/>
+<rect x="214.9" y="104" width="41.9" height="26" rx="3" fill="#0EA5E9"/>
+<rect x="256.8" y="104" width="10.5" height="26" rx="3" fill="#F59E0B"/>
+<rect x="267.3" y="104" width="7.5" height="26" rx="3" fill="#10B981"/>
+<text x="282.8" y="121.0" font-family="Inter.sans-serif" font-size="12" font-weight="700" fill="#0A0A0A">R$ 3.394</text>
+</svg></div>
+    <div class="chart-legend">
+      <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:#18181B"></span>Produção (por hora)</span>
+      <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:var(--chart-1)"></span>Produto próprio (revenue share)</span>
+      <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:var(--chart-3)"></span>Afiliado (comissão)</span>
+      <span class="chart-legend-item"><span class="chart-legend-swatch" style="background:var(--chart-2)"></span>Engajamento (bônus)</span>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:600;margin:28px 0 4px">Simulação: horas gravadas + assinaturas (ticket R$ 99,90) x comissão + bônus de engajamento</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Professor</th><th>Tier</th><th>Horas grav./mês</th><th>Valor/hora</th><th>Produção</th><th>Assinaturas vendidas</th><th>× R$ 99,90</th><th>Comissão</th><th>Ganho afiliado</th><th>Produto próprio</th><th>Índice engaj.</th><th>Bônus engaj.</th><th>Total mês</th></tr></thead>
+    <tbody>
+      <tr><td>Júnior Pimenta</td><td>A</td><td class="cc">4h</td><td class="mono">R$ 700</td><td class="mono">R$ 3.000</td><td class="cc">30</td><td class="mono">R$ 2.997</td><td class="cc">35%</td><td class="mono">R$ 1.049</td><td class="mono">R$ 7.200</td><td class="cc">80</td><td class="mono">R$ 1.800</td><td class="mono"><strong>R$ 13.049</strong></td></tr>
+      <tr><td>Danilo Lamounier</td><td>B</td><td class="cc">4h</td><td class="mono">R$ 500</td><td class="mono">R$ 2.000</td><td class="cc">20</td><td class="mono">R$ 1.998</td><td class="cc">30%</td><td class="mono">R$ 599</td><td class="mono">R$ 5.500</td><td class="cc">57</td><td class="mono">R$ 923</td><td class="mono"><strong>R$ 9.022</strong></td></tr>
+      <tr><td>Treinador Calderon</td><td>C</td><td class="cc">3h</td><td class="mono">R$ 350</td><td class="mono">R$ 1.250</td><td class="cc">15</td><td class="mono">R$ 1.498</td><td class="cc">25%</td><td class="mono">R$ 375</td><td class="mono">R$ 1.500</td><td class="cc">43</td><td class="mono">R$ 269</td><td class="mono"><strong>R$ 3.394</strong></td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><strong>Como ler a simulação:</strong> Produção = horas gravadas × valor/hora do tier (+ ajuda de custo). Ganho afiliado = nº de assinaturas × ticket R$ 99,90 × % de comissão. Produto próprio = revenue share do programa do professor. Bônus engaj. = até 20% sobre as 3 fontes, conforme o índice de engajamento (só paga acima de 40). Tudo é editável na aba <em>Calculadora</em> da planilha.</div>
+</div></section>
+
+<section id="pacote"><div class="wrap">
+  <div class="section-eyebrow">Eixo 05</div>
+  <h2 class="section-title">Pacote do <span class="accent">embaixador</span></h2>
+  <p class="section-lede">Uma troca clara: de um lado o que a Crew entrega para o professor crescer; do outro, o combinado de conteúdo que ele faz pela comunidade. Não é lista de obrigação solta, é o que cada um leva na parceria.</p>
+  <div class="grid2">
+    <div class="card" style="border-top:3px solid var(--chart-2)">
+      <h3>O que a Crew oferece</h3>
+      <ul class="packlist">
+      <li>Treinamento no método Crew by Gabi Bahia (o principal ativo)</li>
+      <li>Landing page exclusiva com CTA de venda da assinatura Crew</li>
+      <li>Área exclusiva no app</li>
+      <li>Posts exclusivos no app divulgando o profissional</li>
+      <li>Sticker / figurinha no Instagram</li>
+      <li>Camisa exclusiva Crew com o nome do profissional</li>
+      <li>Assinatura do nome "by Crew" (linha/produto assinado)</li>
+      <li>Dashboard de resultados em tempo real: vendas + engajamento</li>
+      <li>30% de desconto para o profissional e seus afiliados via cupom Crew Store</li>
+      <li>Repost garantido pelo perfil da Crew (~974k) como alavanca de alcance <span class="sug">+ sugestão</span></li>
+      <li>Produção e edição profissional no estúdio + direito de uso no canal próprio <span class="sug">+ sugestão</span></li>
+      <li>Ensaio/foto profissional e mídia kit pronto para fechar parcerias <span class="sug">+ sugestão</span></li>
+      <li>Selo verificado "Embaixador Crew" no app, site e redes <span class="sug">+ sugestão</span></li>
+      <li>Revenue share do produto próprio + comissão de afiliado (no modelo) <span class="sug">+ sugestão</span></li>
+      <li>Mentoria de crescimento de audiência e de conteúdo <span class="sug">+ sugestão</span></li>
+      <li>Acesso antecipado a lançamentos e voz no roadmap do produto <span class="sug">+ sugestão</span></li>
+      <li>Comunidade de embaixadores (networking) e plano de carreira por tier <span class="sug">+ sugestão</span></li>
+      <li>Kit físico de boas-vindas (camisa, garrafa, brindes) <span class="sug">+ sugestão</span></li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid var(--chart-1)">
+      <h3>O que o embaixador entrega <span style="font-weight:400;color:var(--muted-foreground);font-size:13px">(colaboração de conteúdo)</span></h3>
+      <ul class="packlist">
+      <li>Gravação de Ads (externo)</li>
+      <li>Gravação para social media (externo): YouTube, Instagram, TikTok, em collab e individual</li>
+      <li>Interno na comunidade: posts + clips</li>
+      <li>Aulas: individual e em collab</li>
+      <li>Participação em eventos</li>
+      <li>Lives e Q&A mensais na comunidade <span class="sug">+ sugestão</span></li>
+      <li>Presença mínima nas redes citando a Crew (stories/menções combinadas) <span class="sug">+ sugestão</span></li>
+      <li>Uso da camisa/branding Crew nas gravações <span class="sug">+ sugestão</span></li>
+      <li>Participa das ações e projetos temáticos da comunidade ligados à sua modalidade</li>
+      <li>Captação de depoimentos e cases de alunas <span class="sug">+ sugestão</span></li>
+      <li>Exclusividade de categoria: não fechar com concorrente direto <span class="sug">+ sugestão</span></li>
+      <li>Metas de vendas/assinaturas pela landing page própria <span class="sug">+ sugestão</span></li>
+      <li>Feedback de produto da plataforma <span class="sug">+ sugestão</span></li>
+      </ul>
+    </div>
+  </div>
+  <p class="section-lede" style="margin-top:32px">A intensidade da troca escala com o tier: quanto mais a Crew entrega, mais o embaixador colabora.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Item</th><th>Tier A</th><th>Tier B</th><th>Tier C</th></tr></thead>
+    <tbody>
+      <tr><td>Landing page + área no app</td><td class="cc">Sim</td><td class="cc">Sim</td><td class="cc">Sim (base)</td></tr>
+      <tr><td>Repost no perfil da Crew (~974k)</td><td class="cc">Frequente</td><td class="cc">Eventual</td><td class="cc">Pontual</td></tr>
+      <tr><td>Produto assinado "by Crew"</td><td class="cc">Sim</td><td class="cc">Opcional</td><td class="cc">—</td></tr>
+      <tr><td>Mentoria de conteúdo e audiência</td><td class="cc">Sim</td><td class="cc">Sim</td><td class="cc">Foco principal</td></tr>
+      <tr><td>Projetos temáticos da modalidade</td><td class="cc">Lidera</td><td class="cc">Participa</td><td class="cc">Convidado</td></tr>
+      <tr><td>Horas de gravação contratadas/mês</td><td class="cc">Maior</td><td class="cc">Médio</td><td class="cc">Entrada</td></tr>
+      <tr><td>Gravação de Ads</td><td class="cc">Sim</td><td class="cc">Sim</td><td class="cc">Opcional</td></tr>
+      <tr><td>Presença em eventos</td><td class="cc">Protagonista</td><td class="cc">Participa</td><td class="cc">Convidado</td></tr>
+      <tr><td>Exclusividade de categoria</td><td class="cc">Sim</td><td class="cc">Sim</td><td class="cc">Leve</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">Itens marcados com <span class="sug">+ sugestão</span> são propostas minhas além do que você listou. A exclusividade de categoria e as metas pela landing page são o que mais protege a Crew e dá previsibilidade; os projetos temáticos da modalidade e o selo de embaixador são o que mais engajam o professor a vestir a camisa.</div>
+</div></section>
+
+<section id="passos"><div class="wrap">
+  <div class="highlight">
+    <div class="section-eyebrow">Síntese</div>
+    <h2>Próximos passos</h2>
+    <p>O que falta para fechar com confiança:</p>
+    <ol>
+      <li><strong>Lançar em setembro:</strong> aproveitar o Dia do Profissional de Educação Física (1/9) e o Dia Mundial do Coração (29/9) para apresentar os novos profissionais do mês, treinando-os no método Crew by Gabi Bahia e reduzindo a dependência dela.</li>
+      <li>Definir a fonte de medição de receita atribuída (cupom, link, novas assinantes) e de engajamento da comunidade.</li>
+      <li>Validar os valores em azul da planilha: valor/hora por tier, % de produto e de afiliado, dentro do orçamento real.</li>
+      <li>Decidir sobre Bruna Paludetti: tem alcance grande (339k), foge do perfil "pequeno e carismático" — entra como embaixadora de peso ou fica fora?</li>
+      <li>Montar o mídia kit e a landing page própria de cada professor (posso gerar os templates).</li>
+      <li>Priorizar 2-3 novos talentos pequenos para um teste de embaixador antes de escalar.</li>
+    </ol>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="foot-eyebrow">Crew · Endorfina · Junho 2026</div>
+  <div class="foot-title">Scouting de Professores e Modelo de Remuneração</div>
+</div></footer>
+
+</body></html>
